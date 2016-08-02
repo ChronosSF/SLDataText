@@ -1,0 +1,18 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="Elements\Bag.lua" />
+	<Script file="Elements\Clock.lua" />
+	<Script file="Elements\Coords.lua" />
+	<Script file="Elements\Currencies.lua" />
+	<Script file="Elements\Durability.lua" />
+	<Script file="Elements\Framerate.lua" />
+	<Script file="Elements\Friends.lua" />
+	<Script file="Elements\Gold.lua" />
+	<Script file="Elements\Guild.lua" />
+	<Script file="Elements\Latency.lua" />
+	<Script file="Elements\Mail.lua" />
+	<Script file="Elements\Memory.lua" />
+	<Script file="Elements\Tracking.lua" />
+	<Script file="Elements\ZoneText.lua" />
+	<Script file="Elements\Experience.lua" />
+</Ui>

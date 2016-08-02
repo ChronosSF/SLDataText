@@ -1,0 +1,16 @@
+## Interface: 70000
+## Title: |cff00ff00SLDT|r - Simple Light Data Text
+## Notes: Text-based data display modules.
+## Version: 7.0.0
+## Author: Taffu (fan update by Karaswa & ChronosSF)
+## SavedVariables: SLDTDB
+## OptionalDeps: Ace3, LibSharedMedia-3.0, TabletLib
+
+embeds.xml
+
+Locale\enUS.lua
+
+Core.lua
+Config.lua
+
+elements.xml

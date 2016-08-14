@@ -16,6 +16,7 @@ do
 		if ( locale == "enUS" ) then
 			classColors = {
 				["Death Knight"] = "|cffc41f3b",
+				["Demon Hunter"] = "|cffa330c9",
 				["Druid"] = "|cffff7d0a",
 				["Hunter"] = "|cffabd473",
 				["Mage"] = "|cff69ccf0",
@@ -25,7 +26,7 @@ do
 				["Shaman"] = "|cff2459ff",
 				["Warlock"] = "|cff9482ca",
 				["Warrior"] = "|cffc79c6e",
-				["Monk"] = "|cff00ff96",
+				["Monk"] = "|cff00ff96"
 --				//FAN-UPDATE Karaswa (Monk added)
 			}
 		elseif ( locale == "deDE" ) then

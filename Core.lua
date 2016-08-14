@@ -62,6 +62,7 @@ function SLDataText:GetColor()
 		local class = select(2, UnitClass("player"))
 		local classColors = {
 			["DEATHKNIGHT"] = "c41f3b",
+			["DEMONHUNTER"] = "a330c9",
 			["DRUID"] = "ff7d0a",
 			["HUNTER"] = "abd473",
 			["MAGE"] = "69ccf0",

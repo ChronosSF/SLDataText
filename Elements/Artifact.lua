@@ -4,8 +4,8 @@ local media = LibStub("LibSharedMedia-3.0")
 local justTable, strataTable, pointTable = SLDataText.just, SLDataText.strata, SLDataText.point
 local db
 
-local MODNAME = "Experience"
-local Experience = SLDataText:NewModule(MODNAME, "AceEvent-3.0")
+local MODNAME = "Artifact"
+local Artifact = SLDataText:NewModule(MODNAME, "AceEvent-3.0")
 
 local optGetter, optSetter
 do
@@ -17,7 +17,7 @@ do
 	function optSetter(info, value)
 		local key = info[#info]
 		db[key] = value
-		SLDataText:RefreshModule(Experience)
+		SLDataText:RefreshModule(Artifact)
 	end
 end
 
@@ -25,7 +25,7 @@ local options
 local function getOptions()
 	if ( not options ) then options = {
 		type = "group",
-		name = L["Experience"],
+		name = L["Artifact"],
 		arg = MODNAME,
 		get = optGetter,
 		set = optSetter,
@@ -43,7 +43,7 @@ local function getOptions()
 				set = function(info, value)
 					SLDataText:SetModuleEnabled(MODNAME, value)
 					if ( SLDataText:GetModuleEnabled(MODNAME) ) then
-						Experience:PLAYER_ENTERING_WORLD()
+						Artifact:PLAYER_ENTERING_WORLD()
 					end
 				end,
 				order = 50,
@@ -53,30 +53,6 @@ local function getOptions()
 				name = L["SIC"],
 				desc = L["SICDesc"],
 				order = 100,
-			},
-			showRest = {
-				type = "toggle",
-				name = L["showRest"],
-				desc = L["showRestDesc"],
-				order = 200,
-			},
-			showPer = {
-				type = "toggle",
-				name = L["showPer"],
-				desc = L["showPerDesc"],
-				order = 210,
-			},
-			shortXP = {
-				type = "toggle",
-				name = L["shortXP"],
-				desc = L["shortXPDesc"],
-				order = 220,
-			},
-			onlyPer = {
-				type = "toggle",
-				name = L["onlyPer"],
-				desc = L["onlyPerDesc"],
-				order = 230,
 			},
 			dispHeader = {
 				type = "header",
@@ -122,7 +98,7 @@ local function getOptions()
 				set = function(_, font)
 					local list = media:List("font")
 					db.fontFace = list[font]
-					SLDataText:RefreshModule(Experience)
+					SLDataText:RefreshModule(Artifact)
 				end,
 				width = "double",
 				order = 600,
@@ -205,26 +181,26 @@ local int = 1
 local f
 local function buildModule(self)
 	if ( not f ) then f = CreateFrame("Frame") end
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Experience", UIParent) end
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Artifact", UIParent) end
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end
 
 	f:SetScript("OnUpdate", function(self, elapsed)
 		int = int - elapsed
 		if ( int <= 0 ) then
-			Experience:Refresh()
+			Artifact:Refresh()
 			int = 1
 		end
 	end)
 
-	Experience:RegisterEvent("PLAYER_ENTERING_WORLD")
+	Artifact:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function Experience:PLAYER_ENTERING_WORLD()
+function Artifact:PLAYER_ENTERING_WORLD()
 	SLDataText:RefreshModule(self)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function Experience:OnInitialize()
+function Artifact:OnInitialize()
 	self.db = SLDataText.db:RegisterNamespace(MODNAME)
 	self.db:RegisterDefaults({
 		profile = {
@@ -248,96 +224,41 @@ function Experience:OnInitialize()
 	SLDataText:RegisterModuleOptions(MODNAME, getOptions)
 end
 
-function Experience:OnEnable()
+function Artifact:OnEnable()
 	buildModule(self)
 	if ( not self.frame:IsShown() ) then self.frame:Show() end
 end
 
-function Experience:OnDisable()
+function Artifact:OnDisable()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnUpdate", nil)
 	if ( self.frame:IsShown() ) then self.frame:Hide() end
 end
 
-function Experience:Refresh()
-	local p_level = UnitLevel("player")
-	if (p_level < 110) then
-		local sec_text = db.secText
-
-		--get data
-		local exp_cur = UnitXP("player")
-		local exp_max = UnitXPMax("player")
-		local exp_rest_num = GetXPExhaustion() or 0
-		local exp_rest_id, exp_rest_string, exp_rest_multi = GetRestState()
-
-		--math with data
-		local exp_rem = exp_max - exp_cur
-		local exp_rest_num_max = exp_max / 2 + exp_max --max rest xp is always 150% of current level regardless of current xp
-		local exp_rest_per = (exp_rest_num * 100) / exp_rest_num_max
-		local exp_cur_per = (exp_cur * 100) / exp_max
-
-
-		--round
-		function round(num, idp)
-			local mult = 10^(idp or 0)
-			return math.floor(num * mult + 0.5) / mult
-		end
-
-		local exp_rest_per = round(exp_rest_per, 1)
-		local exp_cur_per = round(exp_cur_per, 1)
-
-		--over 9000
-		if (db.shortXP) then
-			if (exp_max > 10000000) then
-				exp_max = exp_max/1000000
-				exp_max = round(exp_max, 2) .." M"
-			elseif (exp_max > 1000000) then
-				exp_max = exp_max/1000000
-				exp_max = round(exp_max, 3) .." M"
-			elseif (exp_max > 100000) then
-				exp_max = exp_max/1000
-				exp_max = round(exp_max, 0) .. " K"
-			end
-
-			if (exp_cur > 10000000) then
-				exp_cur = exp_cur/1000000
-				exp_cur = round(exp_cur, 2) .." M"
-			elseif (exp_cur > 1000000) then
-				exp_cur = exp_cur/1000000
-				exp_cur = round(exp_cur, 3) .." M"
-			elseif (exp_cur > 100000) then
-				exp_cur = exp_cur/1000
-				exp_cur = round(exp_cur, 0) .. " K"
-			end
-		end
-
-		--options
-		if (db.showRest) then
-			exp_rest_per = " (R: "..exp_rest_per.." %%)"
-		else
-			exp_rest_per = ""
-		end
-
-		if (db.showPer and not db.onlyPer) then
-			exp_cur_per = "("..exp_cur_per.."%%) "
-		elseif (db.onlyPer) then
-			exp_cur_per = exp_cur_per.."%%"
-		else
-			exp_cur_per = ""
-		end
-
-		if string.len(sec_text) > 0 then
-			local color = SLDataText:GetColor()
-			sec_text = "|cff" .. color .. sec_text .. "|r "
-		end
-
-		--post it
-		if (db.onlyPer) then
-			self.string:SetFormattedText(sec_text..exp_cur_per)
-		else
-			self.string:SetFormattedText(sec_text..exp_cur_per..""..exp_cur.." / "..exp_max .."".. exp_rest_per)
-		end
-
-		SLDataText:UpdateModule(self)
+function Artifact:Refresh()
+	if (not HasArtifactEquipped()) then
+		return
 	end
+	local sec_text = db.secText
+	local per_text
+	local current_ap = select(5, C_ArtifactUI.GetEquippedArtifactInfo())
+	local traits_spent = select(6, C_ArtifactUI.GetEquippedArtifactInfo())
+
+	local available = 0
+	local next_rank_cost = C_ArtifactUI.GetCostForPointAtRank(traits_spent + available) or 0
+	
+	while current_ap >= next_rank_cost  do
+		current_ap = current_ap - next_rank_cost
+		available = available + 1
+		next_rank_cost = C_ArtifactUI.GetCostForPointAtRank(traits_spent + available) or 0
+	end
+
+	per_rnd = round((current_ap / next_rank_cost) * 100, 1)
+
+	if string.len(sec_text) > 0 then
+		local color = SLDataText:GetColor()
+		sec_text = "|cff" .. color .. sec_text .. "|r "
+	end
+
+	self.string:SetFormattedText(sec_text..per_rnd.."%% ("..available..")")
 end

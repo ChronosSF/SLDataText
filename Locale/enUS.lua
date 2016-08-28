@@ -97,6 +97,9 @@ L["Game"] = "Game"
 L["Faction"] = "Faction"
 L["Officer Note"] = "Officer Note"
 
+-- Artifact Options
+L["Artifact"] = "Artifact"
+
 -- Experience Options
 L["Experience"] = "Experience"
 L["showRest"] = "Rest XP"

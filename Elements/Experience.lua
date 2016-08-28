@@ -72,10 +72,23 @@ local function getOptions()
 				desc = L["shortXPDesc"],
 				order = 220,
 			},
+			onlyPer = {
+				type = "toggle",
+				name = L["onlyPer"],
+				desc = L["onlyPerDesc"],
+				order = 230,
+			},
 			dispHeader = {
 				type = "header",
 				name = L["DispSet"],
 				order = 275,
+			},
+			secText = {
+				type = "input",
+				name = L["SecText"],
+				desc = L["SecTextDesc"],
+				width = "double",
+				order = 300,
 			},
 			useGlobalFont = {
 				type = "toggle",
@@ -248,7 +261,9 @@ end
 
 function Experience:Refresh()
 	local p_level = UnitLevel("player")
-	if (p_level < 90) then
+	if (p_level < 110) then
+		local sec_text = db.secText
+
 		--get data
 		local exp_cur = UnitXP("player")
 		local exp_max = UnitXPMax("player")
@@ -303,14 +318,25 @@ function Experience:Refresh()
 			exp_rest_per = ""
 		end
 
-		if (db.showPer) then
+		if (db.showPer and not db.onlyPer) then
 			exp_cur_per = "("..exp_cur_per.."%%) "
+		elseif (db.onlyPer) then
+			exp_cur_per = exp_cur_per.."%%"
 		else
 			exp_cur_per = ""
 		end
 
+		if string.len(sec_text) > 0 then
+			local color = SLDataText:GetColor()
+			sec_text = "|cff" .. color .. sec_text .. "|r "
+		end
+
 		--post it
-		self.string:SetFormattedText(exp_cur_per..""..exp_cur.." / "..exp_max .."".. exp_rest_per)
+		if (db.onlyPer) then
+			self.string:SetFormattedText(sec_text..exp_cur_per)
+		else
+			self.string:SetFormattedText(sec_text..exp_cur_per..""..exp_cur.." / "..exp_max .."".. exp_rest_per)
+		end
 
 		SLDataText:UpdateModule(self)
 	end

@@ -105,6 +105,8 @@ L["showPer"] = "XP Percentage"
 L["showPerDesc"] = "When enabled, module will show the XP in percent."
 L["shortXP"] = "Short XP"
 L["shortXPDesc"] = "When enabled, module will show the XP in a short version. (11,33M instead of 11333444)."
+L["onlyPer"] = "Only Percentage"
+L["onlyPerDesc"] = "When enabled, module will show only the percentage portion of the XP."
 
 -- Bag Options
 L["Bag"] = "Bag"

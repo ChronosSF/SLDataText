@@ -241,19 +241,18 @@ function Artifact:Refresh()
 	end
 	local sec_text = db.secText
 	local per_text
-	local current_ap = select(5, C_ArtifactUI.GetEquippedArtifactInfo())
-	local traits_spent = select(6, C_ArtifactUI.GetEquippedArtifactInfo())
+	local _, _, _, _, current_ap, traits_spent, _, _, _, _, _, _, artifact_tier = C_ArtifactUI.GetEquippedArtifactInfo();
 
 	local available = 0
-	local next_rank_cost = C_ArtifactUI.GetCostForPointAtRank(traits_spent + available) or 0
+	local next_rank_cost = C_ArtifactUI.GetCostForPointAtRank(traits_spent + available, artifact_tier) or 0
 	
 	while current_ap >= next_rank_cost  do
 		current_ap = current_ap - next_rank_cost
 		available = available + 1
-		next_rank_cost = C_ArtifactUI.GetCostForPointAtRank(traits_spent + available) or 0
+		next_rank_cost = C_ArtifactUI.GetCostForPointAtRank(traits_spent + available, artifact_tier) or 0
 	end
 
-	per_rnd = round((current_ap / next_rank_cost) * 100, 1)
+	per_rnd = math.ceil((current_ap / next_rank_cost) * 100, 1)
 
 	if string.len(sec_text) > 0 then
 		local color = SLDataText:GetColor()

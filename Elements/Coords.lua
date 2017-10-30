@@ -239,7 +239,9 @@ end
 
 function Coords:Refresh()
 	local posX, posY = GetPlayerMapPosition("player")
-	self.string:SetFormattedText("%."..self.db.profile.precision.."f, %."..self.db.profile.precision.."f", posX*100, posY*100)
-
+	local displayX, displayY
+	if (not posX) then displayX = 0 else displayX = posX * 100 end
+	if (not posY) then displayY = 0 else displayY = posY * 100 end
+	self.string:SetFormattedText("%."..self.db.profile.precision.."f, %."..self.db.profile.precision.."f", displayX, displayY)
 	SLDataText:UpdateModule(self)
 end

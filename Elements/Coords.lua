@@ -238,7 +238,20 @@ function Coords:OnDisable()
 end
 
 function Coords:Refresh()
-	local posX, posY = GetPlayerMapPosition("player")
+	local mapID = C_Map.GetBestMapForUnit("player")
+	local pos, posX, posY
+	if (not mapID) then
+		posX = 0
+		posY = 0
+	else
+		pos = C_Map.GetPlayerMapPosition(mapID, "player")
+		if (not pos) then
+			posX = 0
+			posY = 0
+		else
+			posX, posY = C_Map.GetPlayerMapPosition(mapID, "player"):GetXY()
+		end
+	end
 	local displayX, displayY
 	if (not posX) then displayX = 0 else displayX = posX * 100 end
 	if (not posY) then displayY = 0 else displayY = posY * 100 end

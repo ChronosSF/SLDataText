@@ -404,7 +404,7 @@ function Clock:Refresh()
 		TBTime = L["No Tol Barad Time Available"]
 	end
 	if ( db.pulse ) then
-		local invites = CalendarGetNumPendingInvites()
+		local invites = C_Calendar.GetNumPendingInvites()
 		invitePulse(self, invites)
 	end
 

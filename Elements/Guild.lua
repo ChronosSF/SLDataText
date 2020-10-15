@@ -310,7 +310,7 @@ local function getOptions()
 end
 
 local function buildModule(self)
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_GuildList", UIParent) end -- The frame
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_GuildList", UIParent, BackdropTemplateMixin and "BackdropTemplate") end -- The frame
 	if ( not self.button ) then self.button = CreateFrame("Button", nil, self.frame) end -- The button (optional)
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end -- The font string
 
@@ -363,7 +363,7 @@ end
 function GuildList:OnEnable()
 	-- Register any events, and hide elements you don't want shown
 	self:RegisterEvent("GUILD_ROSTER_UPDATE", "Refresh")
-	self.updatetimer = self:ScheduleRepeatingTimer(function() GuildRoster() end,11)
+	self.updatetimer = self:ScheduleRepeatingTimer(function() C_GuildInfo.GuildRoster() end,11)
 	buildModule(self)
 	if ( not self.frame:IsShown() ) then self.frame:Show() end
 end
@@ -388,10 +388,10 @@ end
 
 local function updateTablet()
 	if ( IsInGuild() and gOnline > 0 ) then
-		GuildRoster()
+		C_GuildInfo.GuildRoster()
 		local header = tab:AddCategory()
-		local gname, _, _ = GetGuildInfo("player")
-		local gmotd = GetGuildRosterMOTD()
+		local gname, _, _ = C_GuildInfo.GetGuildInfo("player")
+		local gmotd = C_GuildInfo.GetGuildRosterMOTD()
 		header:AddLine('text', gname, 'size', 14)
 		header:AddLine('text', gmotd, 'wrap', true)
 
@@ -401,7 +401,7 @@ local function updateTablet()
 		tinsert(col, L["Area"])
 		tinsert(col, L["Rank"])
 		tinsert(col, L["Notes"])
-		if( CanViewOfficerNote() ) then
+		if( C_GuildInfo.CanViewOfficerNote() ) then
 			tinsert(col, L["Officer Note"])
 		end
 		local cat = tab:AddCategory("columns", #col)
@@ -450,7 +450,7 @@ function GuildList:Refresh()
 		self.string:SetFormattedText("|cff%s%s|r %d", color, db.secText or L["Guild:"], guildonline)
 		return
 	elseif(IsInGuild() and notinguild==true) then
-		self.updatetimer = self:ScheduleRepeatingTimer(function() GuildRoster() end,11)
+		self.updatetimer = self:ScheduleRepeatingTimer(function() C_GuildInfo.GuildRoster() end,11)
 	end
 	-- Gather your data
 	gList = nil
@@ -459,7 +459,7 @@ function GuildList:Refresh()
 	for i = 0, GetNumGuildMembers() do
 --      local name, rank, _, lvl, class, zone, note, offnote, online, status = GetGuildRosterInfo(i)
 		local name, rank, rankIndex, lvl, class, zone, note, offnote, online, status, classFileName, achievementPoints, achievementRank, isMobile, canSoR, repStanding = GetGuildRosterInfo(i);
-		if ( online and CanViewOfficerNote() ) then
+		if ( online and C_GuildInfo.CanViewOfficerNote() ) then
 			-- If they're online, we'll add them to our guild table
 			if ( not gList or gList == nil ) then gList = {} end
 			local classColor = classColors[class]

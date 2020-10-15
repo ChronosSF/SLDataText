@@ -203,7 +203,7 @@ local function getOptions()
 end
 
 local function buildModule(self)
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Bag", UIParent) end
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Bag", UIParent, BackdropTemplateMixin and "BackdropTemplate") end
 	if ( not self.button ) then self.button = CreateFrame("Button", nil, self.frame) end
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end
 

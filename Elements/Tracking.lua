@@ -178,7 +178,7 @@ local function getOptions()
 end
 
 local function buildModule(self)
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Tracking", UIParent) end -- The frame
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Tracking", UIParent, BackdropTemplateMixin and "BackdropTemplate") end -- The frame
 	if ( not self.button ) then self.button = CreateFrame("Button", nil, self.frame) end -- The button (optional)
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end -- The font string
 	if ( not self.menu ) then -- The dropdown menu

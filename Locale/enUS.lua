@@ -187,13 +187,6 @@ L["Framerate"] = "Framerate"
 L["GenFPSSet"] = "General Framerate Settings"
 L["fps"] = "fps"
 
--- Friends Options
-L["FriendList"] = "FriendList"
-L["GenFLSet"] = "General FriendList Settings"
-L["Friend List"] = "Friend List"
-L["FLHint"] = "<Click> to whisper, <Alt+Click> to invite, <Shift+Click> to see note."
-L["Friends:"] = "Friends:"
-
 -- Gold Options
 L["Gold"] = "Gold"
 L["GenGoldSet"] = "General Gold Settings"

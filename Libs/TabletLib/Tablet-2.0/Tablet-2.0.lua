@@ -1174,7 +1174,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 			frame:SetFrameLevel(12)
 		end
 	else
-		tooltip = CreateFrame("Frame", "Tablet20Frame", UIParent)
+		tooltip = CreateFrame("Frame", "Tablet20Frame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 		tooltip:SetParent(GetMainFrame())
 		self.tooltip = tooltip
 		tooltip.data = data
@@ -1253,7 +1253,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 		scrollFrame:SetPoint("BOTTOMRIGHT", -5, 5)
 		scrollChild:SetWidth(1)
 		scrollChild:SetHeight(1)
-		local slider = CreateFrame("Slider", "Tablet20FrameSlider", scrollFrame)
+		local slider = CreateFrame("Slider", "Tablet20FrameSlider", scrollFrame, BackdropTemplateMixin and "BackdropTemplate")
 		tooltip.slider = slider
 		slider:SetOrientation("VERTICAL")
 		slider:SetMinMaxValues(0, 1)

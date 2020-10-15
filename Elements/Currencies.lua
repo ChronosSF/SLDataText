@@ -295,7 +295,7 @@ function Currencies:Refresh()
 
 
 			-- // FAN-UPDATE Karaswa
-			local currencySize = GetCurrencyListSize()
+			local currencySize = C_CurrencyInfo.GetCurrencyListSize()
 			for i = 1,currencySize do
 --				name, isHeader, isExpanded, isUnused, isWatched, count, extraCurrencyType, icon, itemID = GetCurrencyListInfo(i)
 				name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, unknown = GetCurrencyListInfo(i)

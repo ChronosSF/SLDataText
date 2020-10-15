@@ -264,6 +264,10 @@ function Experience:Refresh()
 	if (p_level < 60) then
 		local sec_text = db.secText
 
+		if sec_text == nil then
+			sec_text = ""
+		end
+
 		--get data
 		local exp_cur = UnitXP("player")
 		local exp_max = UnitXPMax("player")

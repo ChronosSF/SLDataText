@@ -142,7 +142,7 @@ local function getOptions()
 		args = {
 			genHeader = {
 				type = "header",
-				name = L["GenFLSet"],
+				name = L["GenGLSet"],
 				order = 25,
 			},
 			enabled = {
@@ -390,8 +390,8 @@ local function updateTablet()
 	if ( IsInGuild() and gOnline > 0 ) then
 		C_GuildInfo.GuildRoster()
 		local header = tab:AddCategory()
-		local gname, _, _ = C_GuildInfo.GetGuildInfo("player")
-		local gmotd = C_GuildInfo.GetGuildRosterMOTD()
+		local gname, _, _ = GetGuildInfo("player")
+		local gmotd = GetGuildRosterMOTD()
 		header:AddLine('text', gname, 'size', 14)
 		header:AddLine('text', gmotd, 'wrap', true)
 

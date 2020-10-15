@@ -205,7 +205,7 @@ local int = 1
 local f
 local function buildModule(self)
 	if ( not f ) then f = CreateFrame("Frame") end
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Experience", UIParent) end
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Experience", UIParent, BackdropTemplateMixin and "BackdropTemplate") end
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end
 
 	f:SetScript("OnUpdate", function(self, elapsed)
@@ -261,7 +261,7 @@ end
 
 function Experience:Refresh()
 	local p_level = UnitLevel("player")
-	if (p_level < 110) then
+	if (p_level < 60) then
 		local sec_text = db.secText
 
 		--get data

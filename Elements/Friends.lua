@@ -232,7 +232,7 @@ local function buildPopup(self)
 	self.popup:SetBackdropColor(0, 0, 0, 1)
 	if ( not self.popup.name ) then self.popup.name = self.popup:CreateFontString(nil, "OVERLAY") end
 	if ( not self.popup.note ) then self.popup.note = self.popup:CreateFontString(nil, "OVERLAY") end
-	if ( not self.popup.button ) then self.popup.button = CreateFrame("Button", nil, self.popup, "UIPanelButtonTemplate") end
+	if ( not self.popup.button ) then self.popup.button = CreateFrame("Button", nil, self.popup, "UIPanelButtonTemplate", BackdropTemplateMixin and "BackdropTemplate") end
 	-- Use default fonts
 	self.popup.name:SetFont("Fonts\\FRIZQT__.ttf", 16)
 	self.popup.name:SetJustifyH("LEFT")
@@ -258,7 +258,7 @@ local function buildPopup(self)
 end
 
 local function buildModule(self)
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_FriendList", UIParent) end -- The frame
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_FriendList", UIParent, BackdropTemplateMixin and "BackdropTemplate") end -- The frame
 	if ( not self.button ) then self.button = CreateFrame("Button", nil, self.frame) end -- The button (optional)
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end -- The font string
 	if ( not self.popup ) then self.popup = CreateFrame("Frame", nil, UIParent) end -- Note popup frame

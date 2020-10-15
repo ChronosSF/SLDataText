@@ -182,7 +182,7 @@ local int = 1
 local f
 local function buildModule(self)
 	if ( not f ) then f = CreateFrame("Frame") end
-	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Coords", UIParent) end
+	if ( not self.frame ) then self.frame = CreateFrame("Frame", "SLDT_Coords", UIParent, BackdropTemplateMixin and "BackdropTemplate") end
 	if ( not self.string ) then self.string = self.frame:CreateFontString(nil, "OVERLAY") end
 
 	f:SetScript("OnUpdate", function(self, elapsed)
